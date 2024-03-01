@@ -1,11 +1,15 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
+from flower import *
 from PIL import Image, ImageTk
 
 def saludo(name):
     messagebox.showinfo("Saludos", f"Hola {name}")
 
+def startFlower():
+    flower_button["state"] = "disable"
+    callFlower()
 
 # Main screen setup
 
@@ -60,8 +64,8 @@ buttons = Frame(menu_frame, bg="olivedrab1")
 buttons.pack(side=TOP)
 
 
-button = Button(buttons, text="1", command=lambda: saludo("nora"), width=15, height=7)
-button.grid(row=0, column=0, padx=15, pady=15)
+flower_button = Button(buttons, text="1", command=startFlower, width=15, height=7)
+flower_button.grid(row=0, column=0, padx=15, pady=15)
 button = Button(buttons, text="2", command=lambda: saludo("nora"), width=15, height=7)
 button.grid(row=0, column=1)
 button = Button(buttons, text="3", command=lambda: saludo("nora"), width=15, height=7)
