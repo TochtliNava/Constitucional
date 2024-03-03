@@ -3,6 +3,12 @@ from tkinter import ttk
 from tkinter import messagebox
 from PIL import Image, ImageTk
 
+from plotSoil import plotSoil
+
+def callPlotSoil(button_soil):
+        button_soil["state"] = "disable"
+        plotSoil(button_soil)
+
 def stopFlower(button, root):
     button["state"] = "normal"
     root.destroy()
@@ -11,7 +17,7 @@ def callFlower(button):
 
     # flower root window
 
-    root_flower = Tk()
+    root_flower = Toplevel()
     root_flower.title("Flor")
     root_flower.protocol("WM_DELETE_WINDOW", lambda:stopFlower(button, root_flower))
 
@@ -40,12 +46,15 @@ def callFlower(button):
     image_frame.pack(side=TOP)
     image_frame.pack_propagate(False)
 
-
-
     file_flower = Image.open("./res/images/normal.png")
-    res = file_flower.resize((200,200))
-    flower = ImageTk.PhotoImage(res)
-    flower_image = Label(image_frame, image=flower)
+    res = file_flower.resize(size=(200,200))
+    src = ImageTk.PhotoImage(res)
+    flower_image = Label(image_frame, image=src)
     flower_image.pack(expand=True, fill=BOTH)
+
+    #button
+
+    button_soil = Button(main_frame, command=lambda: callPlotSoil(button_soil), text="Humedad")
+    button_soil.pack(side=TOP)
 
     root_flower.mainloop()

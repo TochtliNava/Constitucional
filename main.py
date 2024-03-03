@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
-from flower import callFlower
+from modules.flower import callFlower
 from PIL import Image, ImageTk
 
 def saludo(name):
