@@ -4,7 +4,7 @@ from tkinter import *
 import numpy as np
 import time
 
-from modules.air import getAirHumidity
+from modules.sensors.air import getAirHumidity
 from res.colors import colors
 
 data = np.array([])
@@ -36,14 +36,14 @@ def plotAir(button):
     root = Toplevel()
     root.title('Humedad del aire')
     root.configure(bg=colors.LIGHT_BLUE)
-    root.geometry("500x500")
+    root.geometry("625x425")
     root.protocol("WM_DELETE_WINDOW", lambda:stop(button, root))
 
     #--------------------------------------
     fig = Figure()
     ax = fig.add_subplot(111)
 
-    ax.set_title("Humedad del suelo")
+    ax.set_title("Humedad del aire")
     ax.set_xlabel('Tiempo (s)')
     ax.set_ylabel('Humedad')
     ax.set_xlim(0, 60)

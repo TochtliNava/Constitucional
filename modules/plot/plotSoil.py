@@ -4,7 +4,7 @@ from tkinter import *
 import numpy as np
 import time
 
-from modules.soil import getSoilMoisture
+from modules.sensors.soil import getSoilMoisture
 from res.colors import colors
 
 data = np.array([])
@@ -36,7 +36,7 @@ def plotSoil(button):
     root = Toplevel()
     root.title('Humedad del suelo')
     root.configure(bg=colors.LIGHT_BLUE)
-    root.geometry("900x500")
+    root.geometry("625x425")
     root.protocol("WM_DELETE_WINDOW", lambda:stop(button, root))
 
     #--------------------------------------
