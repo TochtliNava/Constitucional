@@ -1,11 +1,13 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
-from modules.flower import callFlower
 from PIL import Image, ImageTk
 
-def saludo(name):
-    messagebox.showinfo("Saludos", f"Hola {name}")
+from modules.flower import callFlower
+from res.colors import colors
+
+def alert():
+    messagebox.showinfo("Alerta","Modulo no terminado")
 
 def startFlower():
     flower_button["state"] = "disable"
@@ -51,16 +53,16 @@ logo_imagen.pack(pady=180)
 
 #   DEMO SIDE
 
-menu_frame = Frame(main_frame, bg="#59D5E0")
+menu_frame = Frame(main_frame, bg=colors.GREEN)
 menu_frame.pack(side=LEFT, fill=BOTH, expand=True)
 menu_frame.pack_propagate(False)
 
-label = Label(menu_frame, text="Seleccione una Demo", font=("Arial", 30, "bold"), bg="#59D5E0", fg="black")
+label = Label(menu_frame, text="Seleccione una Demo", font=("Arial", 30, "bold"), bg=colors.GREEN, fg="black")
 label.pack(side=TOP, pady=40)
 
     #   butons grid
 
-buttons = Frame(menu_frame, bg="#59D5E0", width=405, height=310)
+buttons = Frame(menu_frame, bg=colors.GREEN, width=405, height=310)
 buttons.pack(side=TOP)
 buttons.pack_propagate(False)
 
@@ -68,10 +70,10 @@ buttons.pack_propagate(False)
 flower_button = Button(buttons, text="Flor", font=("Helvetica", 20), command=startFlower, bg="#F5DD61", fg="white")
 flower_button.pack(side=TOP, fill=X, expand=True)
 
-motion_button = Button(buttons, text="Movimiento", font=("Helvetica", 20), command=startFlower, bg="#FAA300", fg="white")
+motion_button = Button(buttons, text="Movimiento", font=("Helvetica", 20), command=alert, bg="#FAA300", fg="white")
 motion_button.pack(side=TOP, fill=X, expand=True)
 
-soon_button = Button(buttons, text="Proximamente", font=("Helvetica", 20), command=startFlower, bg="#F4538A", fg="white")
+soon_button = Button(buttons, text="Proximamente", font=("Helvetica", 20), command=alert, bg="#F4538A", fg="white")
 soon_button.pack(side=TOP, fill=X, expand=True)
 
 

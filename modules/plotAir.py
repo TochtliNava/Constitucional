@@ -4,7 +4,7 @@ from tkinter import *
 import numpy as np
 import time
 
-from modules.soil import getSoilMoisture
+from modules.air import getAirHumidity
 from res.colors import colors
 
 data = np.array([])
@@ -14,12 +14,12 @@ def stop(button, root):
     button["state"] = "normal"
     root.destroy()
 
-def plotSoil(button):
+def plotAir(button):
 
     def plot():
         global data
 
-        a = getSoilMoisture()
+        a = getAirHumidity()
 
         if(len(data) < 60):
             data = np.append(data,a)
@@ -34,9 +34,9 @@ def plotSoil(button):
         root.after(1000, plot)
 
     root = Toplevel()
-    root.title('Humedad del suelo')
+    root.title('Humedad del aire')
     root.configure(bg=colors.LIGHT_BLUE)
-    root.geometry("900x500")
+    root.geometry("500x500")
     root.protocol("WM_DELETE_WINDOW", lambda:stop(button, root))
 
     #--------------------------------------
