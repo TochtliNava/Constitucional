@@ -4,14 +4,19 @@ from tkinter import messagebox
 from PIL import Image, ImageTk
 
 from modules.flower import callFlower
+from modules.led import callLed
 from res.colors import colors
 
 def alert():
     messagebox.showinfo("Alerta","Modulo no terminado")
 
-def startFlower():
+def startFlower(flower_button):
     flower_button["state"] = "disable"
     callFlower(flower_button)
+
+def startLed(led_button):
+    led_button["state"] = "disable"
+    callLed(led_button)
 
 # Main screen setup
 
@@ -39,7 +44,7 @@ main_frame.pack(fill=BOTH, expand=True)
 
 #   IMAGE SIDE
 
-image_frame = Frame(main_frame, bg="#f0f0f0")
+image_frame = Frame(main_frame, bg="#d9d9d9")
 image_frame.pack(side=LEFT, fill=BOTH, expand=True)
 image_frame.pack_propagate(False)
 
@@ -67,11 +72,11 @@ buttons.pack(side=TOP)
 buttons.pack_propagate(False)
 
 
-flower_button = Button(buttons, text="Flor", font=("Helvetica", 20), command=startFlower, bg="#F5DD61", fg="white")
+flower_button = Button(buttons, text="Flor", font=("Helvetica", 20), command=lambda:startFlower(flower_button), bg="#F5DD61", fg="white")
 flower_button.pack(side=TOP, fill=X, expand=True)
 
-motion_button = Button(buttons, text="Movimiento", font=("Helvetica", 20), command=alert, bg="#FAA300", fg="white")
-motion_button.pack(side=TOP, fill=X, expand=True)
+led_button = Button(buttons, text="LED", font=("Helvetica", 20), command=lambda:startLed(led_button), bg="#FAA300", fg="white")
+led_button.pack(side=TOP, fill=X, expand=True)
 
 soon_button = Button(buttons, text="Proximamente", font=("Helvetica", 20), command=alert, bg="#F4538A", fg="white")
 soon_button.pack(side=TOP, fill=X, expand=True)

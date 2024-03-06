@@ -8,6 +8,10 @@ from modules.sensors.soil import getSoilMoisture
 from modules.sensors.rain import isRaining
 from modules.plot.plotAir import plotAir
 from modules.sensors.air import getAirHumidity
+from modules.sensors.light import getLight
+from modules.plot.plotTemperature import plotTemperature
+from modules.sensors.temperature import getTemperature
+from modules.sensors.fire import getFire
 from res.colors import colors
 
 def callPlotSoil(button_soil):
@@ -17,6 +21,10 @@ def callPlotSoil(button_soil):
 def callPlotAir(button_air):
     button_air["state"] = "disable"
     plotAir(button_air)
+
+def callPlotTemperature(button_temp):
+    button_temp["state"] = "disable"
+    plotTemperature(button_temp)
 
 def stopFlower(button, root):
     button["state"] = "normal"
@@ -28,31 +36,33 @@ def callFlower(button):
         label_soil.config(text=str(getSoilMoisture()))
         label_rain.config(text=isRaining())
         label_air.config(text=str(getAirHumidity()))
-        root_flower.after(1000, update)
+        label_light_val.config(text=str(getLight()))
+        label_fire_val.config(text=getFire())
+        root.after(1000, update)
          
 
     # flower root window
 
-    root_flower = Toplevel()
-    root_flower.title("Flor")
-    root_flower.protocol("WM_DELETE_WINDOW", lambda:stopFlower(button, root_flower))
+    root = Toplevel()
+    root.title("Flor")
+    root.protocol("WM_DELETE_WINDOW", lambda:stopFlower(button, root))
 
     window_width = 700
     window_height = 700
 
-    screen_width = root_flower.winfo_screenwidth()
-    scren_height = root_flower.winfo_screenheight()
+    screen_width = root.winfo_screenwidth()
+    scren_height = root.winfo_screenheight()
 
     center_x = int(screen_width/2 - window_width/2)
     center_y = int(scren_height/2 - window_height/2)
 
-    root_flower.geometry(f"{window_width}x{window_height}+{center_x}+{center_y}")
-    root_flower.resizable(False, False)
+    root.geometry(f"{window_width}x{window_height}+{center_x}+{center_y}")
+    root.resizable(False, False)
 
     
     # Main frame
 
-    main_frame = Frame(root_flower, bg=colors.GRAY_600)
+    main_frame = Frame(root, bg=colors.GRAY_600)
     main_frame.pack(fill=BOTH, expand=True)
     main_frame.pack_propagate(False)
 
@@ -85,13 +95,31 @@ def callFlower(button):
 
     label_air = Label(data, text=str(getAirHumidity()), font=("Arial", 20))
     label_air.grid(row=1, column=2, padx=10, pady=10)
+    
+    button_temp = Button(data, command=lambda: callPlotTemperature(button_temp), text="Temperatura Aire", font=("Arial", 20))
+    button_temp.grid(row=2, column=0, columnspan=2, padx=10, pady=10)
+
+    label_temp = Label(data, text=str(getTemperature()), font=("Arial", 20))
+    label_temp.grid(row=2, column=2, padx=10, pady=10)
 
     label_isRain = Label(data, text="Lluvia", font=("Arial", 20))
-    label_isRain.grid(row=2, column=0, columnspan=2, padx=10, pady=10)
+    label_isRain.grid(row=3, column=0, columnspan=2, padx=10, pady=10)
 
     label_rain = Label(data, text=isRaining(), font=("Arial", 20))
-    label_rain.grid(row=2, column=2, padx=10, pady=10)
+    label_rain.grid(row=3, column=2, padx=10, pady=10)
+    
+    label_light = Label(data, text="Luz", font=("Arial", 20))
+    label_light.grid(row=4, column=0, columnspan=2, padx=10, pady=10)
+    
+    label_light_val = Label(data, text=str(getLight()), font=("Arial", 20))
+    label_light_val.grid(row=4, column=2, padx=10, pady=10)
+    
+    label_fire = Label(data, text="Fuego", font=("Arial", 20))
+    label_fire.grid(row=5, column=0, columnspan=2, padx=10, pady=10)
+    
+    label_fire_val = Label(data, text=getFire(), font=("Arial", 20))
+    label_fire_val.grid(row=5, column=2, padx=10, pady=10)
     
 
-    root_flower.after(1000, update)
-    root_flower.mainloop()
+    root.after(1000, update)
+    root.mainloop()

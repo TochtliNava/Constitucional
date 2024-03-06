@@ -1,4 +1,4 @@
 import random
 
 def getSoilMoisture():
-    return random.randint(4, 50)
+    return random.randint(47, 50)

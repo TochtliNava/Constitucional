@@ -1,2 +1,6 @@
+from gpiozero import InputDevice
+
+SENSOR = InputDevice(18)
+
 def isRaining():
-    return "si" if True else "no"
+    return "Si" if not SENSOR.is_active else "No"
