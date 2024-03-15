@@ -1,8 +1,10 @@
-import Adafruit_DHT
-
-SENSOR = Adafruit_DHT.DHT11
-PIN = 4
+from sensors.arduino import com
 
 def getAirHumidity():
-    humedad, temperatura = Adafruit_DHT.read_retry(SENSOR, PIN)
-    return humedad
+    val = com.readline()
+    cad = val.decode('ascii')
+    pos = cad.index(":")
+    label = cad[:pos]
+    value = cad[pos + 1:]
+    if(label == "HUM"):
+        return float(value)

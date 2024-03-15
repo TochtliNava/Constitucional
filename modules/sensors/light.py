@@ -1,13 +1,10 @@
-import random
-import RPi.GPIO as GPIO
-
-SENSOR = 15
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(SENSOR, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+from sensors.arduino import com
 
 def getLight():
-    if(GPIO.input(SENSOR) == 1):
-        return "No hay luz"
-    else:
-        return "Si hay luz"
+    val = com.readline()
+    cad = val.decode('ascii')
+    pos = cad.index(":")
+    label = cad[:pos]
+    value = cad[pos + 1:]
+    if(label == "LUZ"):
+        return "Si" if value == 1 else "No"

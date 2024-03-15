@@ -1,6 +1,10 @@
-from gpiozero import InputDevice
-
-SENSOR = InputDevice(18)
+from sensors.arduino import com
 
 def isRaining():
-    return "Si" if not SENSOR.is_active else "No"
+    val = com.readline()
+    cad = val.decode('ascii')
+    pos = cad.index(":")
+    label = cad[:pos]
+    value = cad[pos + 1:]
+    if(label == "LLUVIA"):
+        return "Si" if value == 1 else "No"
