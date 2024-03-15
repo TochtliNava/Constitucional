@@ -38,7 +38,7 @@ def callFlower(button):
         label_air.config(text=str(getAirHumidity()))
         label_light_val.config(text=str(getLight()))
         label_fire_val.config(text=getFire())
-        root.after(1000, update)
+        root.after(10, update)
          
 
     # flower root window
@@ -121,5 +121,5 @@ def callFlower(button):
     label_fire_val.grid(row=5, column=2, padx=10, pady=10)
     
 
-    root.after(1000, update)
+    root.after(10, update)
     root.mainloop()

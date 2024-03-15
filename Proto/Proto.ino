@@ -9,40 +9,19 @@
 
 DHT dht(T11, DHTTYPE);
 
-void printLluvia() {
-  int valor = digitalRead(LLUVIA);
-  valor = map(valor, 1, 0, 0, 1);
-  Serial.println("LLUVIA:"+String(valor));
-}
-
-void printLuz() {
-  int valor = digitalRead(LUZ);
-  valor = map(valor, 1, 0, 0, 1);
-  Serial.println("LUZ:"+String(valor));
-}
-
-void printFlama() {
-  int valor = digitalRead(FLAMA);
-  valor = map(valor, 1, 0, 0, 1);
-  Serial.println("FLAMA:"+String(valor));
-}
-
-void printHumedad(){
+void printData(){
+  int lluvia = digitalRead(LLUVIA);
+  lluvia = map(lluvia, 1, 0, 0, 1);
+  int luz = digitalRead(LUZ);
+  luz = map(luz, 1, 0, 0, 1);
+  int flama = digitalRead(FLAMA);
+  flama = map(flama, 1, 0, 0, 1);
   float h = dht.readHumidity();
-  // Leemos la temperatura en grados centígrados (por defecto)
-  Serial.println("HUM:"+String(h));
-}
-
-void printTemp(){
   float t = dht.readTemperature();
-  Serial.println("TEMP:"+String(t));
+  Serial.println("{LLUVIA:"+String(lluvia)+"}{LUZ:"+String(luz)+"}{FLAMA:"+String(flama)+"}{HUMEDAD:"+String(h)+"}{TEMP:"+String(t)+"}");
 }
 
-Ticker ticLLuvia(printLluvia, 200);
-Ticker ticTemp(printTemp, 300);
-Ticker ticHum(printHumedad, 400);
-Ticker ticFire(printFlama, 500);
-Ticker ticLuz(printLuz, 600);
+Ticker ticData(printData, 1);
 
 void setup() {
   Serial.begin(9600);
@@ -51,18 +30,11 @@ void setup() {
   pinMode(LUZ, INPUT);
   // put your setup code here, to run once:
   dht.begin();
-  ticLLuvia.start();
-  ticHum.start();
-  ticTemp.start();
-  ticFire.start();
-  ticLuz.start();
+  ticData.start();
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  ticLLuvia.update();
-  ticHum.update();
-  ticTemp.update();
-  ticFire.update();
-  ticLuz.update();
+  ticData.update();
+  Serial.read();
 }

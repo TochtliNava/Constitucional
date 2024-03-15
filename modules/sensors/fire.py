@@ -1,10 +1,9 @@
-from sensors.arduino import com
+from modules.sensors.arduino import com
+import re
+
+patron = r'{(\w+):(\d+(?:\.\d+)?)}'
 
 def getFire():
-    val = com.readline()
-    cad = val.decode('ascii')
-    pos = cad.index(":")
-    label = cad[:pos]
-    value = cad[pos + 1:]
-    if(label == "FLAMA"):
-        return "Fuego!" if value == 1 else "Seguro"
+    matches = re.findall(patron, com.readline().decode('ascii'))
+    properties = {match[0]: match[1] for match in matches}
+    return "FUEGO" if properties["FLAMA"] == "1" else "No"

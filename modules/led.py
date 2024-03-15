@@ -2,45 +2,27 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 from PIL import Image, ImageTk
-import RPi.GPIO as GPIO
+
 
 from res.colors import colors
 
-RED = 13
-GREEN = 19
-BLUE = 26
 
-GPIO.setmode(GPIO.BCM)
-
-GPIO.setup(RED, GPIO.OUT)
-GPIO.setup(GREEN, GPIO.OUT)
-GPIO.setup(BLUE, GPIO.OUT)
-
-R = GPIO.PWM(RED, 100)
-G = GPIO.PWM(GREEN, 100)
-B = GPIO.PWM(BLUE, 100)
-
-R.start(100)
-G.start(100)
-B.start(100)
 
 color = 100
 
 def stopLed(button, root):
-	R.ChangeDutyCycle(100)
-	G.ChangeDutyCycle(100)
-	B.ChangeDutyCycle(100)
+	
 	button["state"] = "normal"
 	root.destroy()
 
 def callLed(button):
 	
 	def update(color):
-		if(color > 1):
-			color = color - 1
-			R.ChangeDutyCycle(color + 1)
-			G.ChangeDutyCycle(color)
-			B.ChangeDutyCycle(color - 1) 
+		#if(color > 1):
+		#	color = color - 1
+		#	R.ChangeDutyCycle(color + 1)
+		#	G.ChangeDutyCycle(color)
+		#	B.ChangeDutyCycle(color - 1) 
 		root.after(1, lambda:update(color))
 		        
          
